@@ -1,7 +1,7 @@
 // Requires
 var express = require('express');
 var mongoose = require('mongoose');
-// var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 
 
 // inicializar variables
@@ -21,16 +21,16 @@ app.use(function(req, res, next) {
 // body parser
 
 // parse application/x-www-form-urlencoded
-// app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
-// app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 
 
 //importar ruta
 var equipoRoutes = require('./routes/equipo');
-// var usuarioRoutes = require('./routes/usuario');
-// var loginRoutes = require('./routes/login');
+var usuarioRoutes = require('./routes/usuario');
+var clienteRoutes = require('./routes/cliente');
 // var hospitalRoutes = require('./routes/hospital');
 // var medicoRoutes = require('./routes/medico');
 // var busquedaRoutes = require('./routes/busqueda');
@@ -56,8 +56,8 @@ mongoose.connection.openUri('mongodb://localhost:27017/Examen', (err, res) => {
 // app.use('/upload', uploadRoutes);
 // app.use('/busqueda', busquedaRoutes);
 // app.use('/medico', medicoRoutes);
-// app.use('/hospital', hospitalRoutes);
-// app.use('/usuario', usuarioRoutes);
+app.use('/cliente', clienteRoutes);
+app.use('/usuario', usuarioRoutes);
 // app.use('/login', loginRoutes);
 app.use('/equipo', equipoRoutes);
 

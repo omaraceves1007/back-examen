@@ -29,4 +29,28 @@ app.get('/', (req, res, next) => {
 //      Guardar equipos
 //=======================================
 
+app.post('/', (req, res) => {
+
+    var body = req.body;
+    var equipo = new Equipo({
+        nombre: body.nombre
+    });
+
+    equipo.save((err, equipoGuardado) => {
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                mensaje: 'Error al crear Equipo',
+                errors: err
+            });
+        }
+
+        res.status(200).json({
+            ok: true,
+            equipo: equipoGuardado
+        });
+    });
+});
+
 module.exports = app;

@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var usuarioSchema = new Schema({
     nombre: { type: String, required: [true, 'El nombre es requerido'] },
-    equipo_id: { type: Schema.Types.ObjectId, ref: 'Equipo' }
+    equipo_id: { type: Schema.Types.ObjectId, ref: 'Equipo', required: true }
 }, { collections: 'usuarios' });
 
 module.exports = mongoose.model('Usuario', usuarioSchema);
