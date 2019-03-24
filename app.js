@@ -28,7 +28,7 @@ app.use(function(req, res, next) {
 
 
 //importar ruta
-// var appRoutes = require('./routes/app');
+var equipoRoutes = require('./routes/equipo');
 // var usuarioRoutes = require('./routes/usuario');
 // var loginRoutes = require('./routes/login');
 // var hospitalRoutes = require('./routes/hospital');
@@ -41,7 +41,7 @@ app.use(function(req, res, next) {
 
 //Conexion a la base de datos
 
-mongoose.connection.openUri('mongodb://localhost:27017/examen', (err, res) => {
+mongoose.connection.openUri('mongodb://localhost:27017/Examen', (err, res) => {
     if (err) throw err;
     console.log('Base de Datos: online');
 });
@@ -59,7 +59,7 @@ mongoose.connection.openUri('mongodb://localhost:27017/examen', (err, res) => {
 // app.use('/hospital', hospitalRoutes);
 // app.use('/usuario', usuarioRoutes);
 // app.use('/login', loginRoutes);
-// app.use('/', appRoutes);
+app.use('/equipo', equipoRoutes);
 
 
 
