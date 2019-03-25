@@ -26,41 +26,70 @@ app.get('/', (req, res) => {
 
 });
 
-//============================================
-//      Obtener clientes por equipo y usuario
-//============================================
+//=======================================
+//      Obtener clientes por usuario
+//=======================================
 
-app.get('/:equipo/:usuario', (req, res) => {
+app.get('/:usuario/:equipo', (req, res) => {
 
-    var equipo = req.params.equipo;
     var usuario = req.params.usuario;
-    console.log(usuario);
+    var equipo = req.params.equipo;
 
-    Cliente.find({}, 'usuario_id email').populate({
+    Cliente.find({ 'usuario_id': usuario })
+        .populate({
             path: 'usuario_id',
-            match: { '_id': usuario, 'equipo_id': equipo }
+            match: { 'equipo_id': equipo }
         })
         .exec((err, clientes) => {
             if (err) {
                 return res.status(500).json({
                     ok: false,
-                    mensaje: 'Error Cargando clientes',
+                    mensaje: 'Error Cargando Clientes',
                     errors: err
                 });
             }
-            console.log(clientes);
-            clientes.forEach(cliente => {
-                if (cliente.usuario_id === null) {
-                    clientes.splice(clientes.indexOf(cliente), 1);
-                }
-            });
             res.status(200).json({
                 ok: true,
                 clientes: clientes
             });
         });
 
+
 });
+
+//============================================
+//      Obtener clientes por equipo y usuario
+//============================================
+
+// app.get('/:equipo/:usuario', (req, res) => {
+
+//     var equipo = req.params.equipo;
+//     var usuario = req.params.usuario;
+
+//     Cliente.find({}, 'usuario_id email').populate({
+//             path: 'usuario_id',
+//             match: { '_id': usuario, 'equipo_id': equipo }
+//         })
+//         .exec((err, clientes) => {
+//             if (err) {
+//                 return res.status(500).json({
+//                     ok: false,
+//                     mensaje: 'Error Cargando clientes',
+//                     errors: err
+//                 });
+//             }
+//             clientes.forEach(cliente => {
+//                 if (cliente.usuario_id === null) {
+//                     clientes.splice(clientes.indexOf(cliente), 1);
+//                 }
+//             });
+//             res.status(200).json({
+//                 ok: true,
+//                 clientes: clientes
+//             });
+//         });
+
+// });
 
 //=======================================
 //      Guardar Clientes nuevos

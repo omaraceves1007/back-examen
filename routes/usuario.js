@@ -75,7 +75,7 @@ app.post('/', (req, res) => {
 
         res.status(200).json({
             ok: true,
-            equipo: usuarioGuardado
+            usuario: usuarioGuardado
         });
     });
 });
